@@ -6,27 +6,35 @@
 
 GitHub Pages：`https://pakho2433.github.io/anine-game-/`
 
-如果首次開啟顯示 404，請到 Repository 的 **Settings → Pages → Build and deployment → Source**，選擇 **GitHub Actions**。之後每次更新 `main` 分支都會自動重新部署。
+如果首次開啟顯示 404，請到 Repository 的 **Settings → Pages → Build and deployment → Source**，選擇 **GitHub Actions**。
 
-## 已完成
+## 帳戶系統
 
-- 紅色史萊姆英雄與多款綠／藍／紅怪物
-- 厚白邊、黑色內框、紫色像素場景
-- 自動攻擊、怪物反擊、爆擊及三種技能
+- 登入時需要帳戶名稱及密碼
+- 可在登入頁建立新帳戶
+- 密碼不會以純文字保存，瀏覽器只會保存加鹽後的雜湊值
+- 目前仍是 GitHub Pages 單機版，帳戶及存檔只存在建立帳戶的瀏覽器
+- 正式跨手機／跨電腦登入需要接駁 Firebase Authentication 與 Firestore
+
+## 五人隊伍
+
+| 解鎖等級 | 職業 | 主要技能 |
+|---|---|---|
+| Lv.1 | 劍士 | 烈焰斬 |
+| Lv.5 | 法師 | 星爆術 |
+| Lv.10 | 槍手 | 三連射 |
+| Lv.15 | 坦克 | 守護壁壘及減傷 |
+| Lv.20 | 醫生 | 群體治療 |
+
+每個職業都有獨立攻擊速度、技能冷卻、角色外觀與技能動畫。技能可自動施放，也可在戰鬥畫面手動按下。
+
+## 其他玩法
+
 - 4 個地圖區域，每區 10 關，第 10 關為 Boss
 - 擊殺獲得金幣、經驗值及隨機裝備
-- 角色升級、技能升級、裝備穿戴及全身強化
+- 角色升級、職業技能升級、裝備穿戴及全身強化
 - 普通至神話 6 種裝備稀有度
 - 5 件同稀有度裝備合成下一級裝備
-- 按玩家帳戶分開存檔、每 5 秒自動儲存
-- 繼續上次帳戶及最多 8 小時離線獎勵
+- 每 5 秒自動儲存及最多 8 小時離線獎勵
 - 電腦及手機響應式介面
-- GitHub Actions 自動部署 GitHub Pages
-
-## 本機開啟
-
-不要只在 GitHub 程式碼預覽頁面按 `index.html`。請下載整個 Repository，再用瀏覽器開啟 `index.html`；檔案 `style.css` 與 `game.js` 必須放在同一資料夾。
-
-## 存檔說明
-
-目前版本使用瀏覽器 `localStorage`，同一瀏覽器輸入相同帳戶即可讀取存檔。跨手機／跨電腦同步需在下一階段接駁 Firebase Authentication 與 Firestore。
+- GitHub Actions 自動驗證 JavaScript 語法及部署 Pages
