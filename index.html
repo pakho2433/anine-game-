@@ -1,148 +1,37 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#271f55">
-  <title>Blob Quest — Pixel Idle RPG</title>
-  <link rel="stylesheet" href="style.css">
-  <script defer src="game.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#271f55">
+<title>Blob Quest</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="game.js"></script>
 </head>
 <body>
-  <main id="loginScreen" class="screen login-screen">
-    <section class="pixel-card login-card">
-      <div class="logo-slimes" aria-hidden="true">
-        <span class="mini-slime red"></span>
-        <span class="mini-slime green"></span>
-        <span class="mini-slime blue"></span>
-      </div>
-      <h1>BLOB QUEST</h1>
-      <p class="subtitle">像素史萊姆自動掛機 RPG</p>
-      <label class="field-label" for="accountInput">玩家帳戶</label>
-      <input id="accountInput" class="pixel-input" maxlength="20" autocomplete="username" placeholder="輸入名稱，例如 Pakho">
-      <button id="loginButton" class="pixel-button gold wide">登入／建立角色</button>
-      <button id="continueButton" class="pixel-button purple wide hidden"></button>
-      <p class="help-text">每個帳戶都有獨立存檔。遊戲每 5 秒自動儲存，重新開啟亦會計算離線獎勵。</p>
-      <p id="loginError" class="error-text" role="alert"></p>
-    </section>
-  </main>
+<main id="loginScreen" class="screen login-screen">
+<section class="pixel-card login-card">
+<div class="logo-slimes"><span class="mini-slime red"></span><span class="mini-slime green"></span><span class="mini-slime blue"></span></div>
+<h1>BLOB QUEST</h1><p class="subtitle">五人史萊姆自動掛機 RPG</p>
+<label class="field-label" for="accountInput">帳戶名稱</label>
+<input id="accountInput" class="pixel-input" maxlength="20" autocomplete="username" placeholder="輸入帳戶名稱">
+<label class="field-label" for="passwordInput">密碼</label>
+<input id="passwordInput" class="pixel-input" type="password" minlength="4" maxlength="64" autocomplete="current-password" placeholder="至少 4 個字元">
+<div class="auth-buttons"><button id="loginButton" class="pixel-button gold">登入</button><button id="registerButton" class="pixel-button purple">建立帳戶</button></div>
+<p class="help-text">目前是單機帳戶版本，只會保存在此瀏覽器。</p><p id="loginError" class="error-text"></p>
+</section></main>
 
-  <main id="gameScreen" class="screen game-screen hidden">
-    <div class="game-shell">
-      <header class="top-bar pixel-panel">
-        <div class="player-chip">
-          <div class="player-portrait">●</div>
-          <div>
-            <strong id="playerName">Player</strong>
-            <div class="small">Lv. <span id="levelText">1</span> · 戰力 <span id="powerText">0</span></div>
-          </div>
-        </div>
-        <div class="resource-chip">🪙 <strong id="goldText">0</strong></div>
-        <div class="resource-chip">💎 <strong id="gemText">0</strong></div>
-        <div class="top-spacer"></div>
-        <span id="saveStatus" class="small save-status">尚未儲存</span>
-        <button id="manualSaveButton" class="icon-button" title="儲存">💾</button>
-        <button id="logoutButton" class="icon-button" title="登出">↩</button>
-      </header>
-
-      <nav class="left-menu pixel-panel" aria-label="遊戲選單">
-        <button class="menu-button active">⚔ 戰鬥</button>
-        <button class="menu-button" data-focus-tab="equipment">🛡 裝備</button>
-        <button class="menu-button" data-focus-tab="inventory">🎒 背包</button>
-        <button class="menu-button" data-focus-tab="skills">✨ 技能</button>
-        <div class="quest-box">
-          <strong>每日任務</strong>
-          <span class="small">擊敗 30 隻怪物</span>
-          <div class="meter"><i id="questBar"></i></div>
-          <span id="questText" class="small">0 / 30</span>
-        </div>
-      </nav>
-
-      <section class="battle-column pixel-panel">
-        <div class="stage-header">
-          <div>
-            <strong id="mapTitle">暮色草原</strong>
-            <span id="stageText">Stage 1 / 10</span>
-          </div>
-          <div id="stageNodes" class="stage-nodes" aria-label="關卡進度"></div>
-        </div>
-
-        <div class="battle-area">
-          <canvas id="battleCanvas" width="360" height="220" aria-label="自動戰鬥畫面"></canvas>
-          <div class="battle-hud">
-            <article class="unit-panel">
-              <div><strong id="heroName">Hero</strong><span id="heroHpText">100 / 100</span></div>
-              <div class="hp-meter"><i id="heroHpBar"></i></div>
-            </article>
-            <article class="unit-panel enemy-panel">
-              <div><strong id="enemyName">Green Blob</strong><span id="enemyHpText">30 / 30</span></div>
-              <div class="hp-meter"><i id="enemyHpBar"></i></div>
-            </article>
-          </div>
-          <div id="floatingLayer" class="floating-layer" aria-hidden="true"></div>
-        </div>
-
-        <div class="battle-controls">
-          <button class="skill-button" data-skill="slash"><span>⚔</span><small>強力斬</small><b class="cooldown hidden"></b></button>
-          <button class="skill-button blue" data-skill="burst"><span>✦</span><small>星光爆</small><b class="cooldown hidden"></b></button>
-          <button class="skill-button green" data-skill="heal"><span>✚</span><small>治療</small><b class="cooldown hidden"></b></button>
-          <button id="autoButton" class="auto-button on">AUTO ON</button>
-        </div>
-      </section>
-
-      <aside class="right-panel pixel-panel">
-        <div class="tabs" role="tablist">
-          <button class="tab active" data-tab="equipment">裝備</button>
-          <button class="tab" data-tab="inventory">背包</button>
-          <button class="tab" data-tab="skills">技能</button>
-        </div>
-
-        <section id="equipmentPane" class="tab-pane">
-          <div class="stats-grid">
-            <div class="stat-card">攻擊力<strong id="attackStat">0</strong></div>
-            <div class="stat-card">最大生命<strong id="hpStat">0</strong></div>
-            <div class="stat-card">爆擊率<strong id="critStat">0%</strong></div>
-            <div class="stat-card">裝備強化<strong id="enhanceStat">+0</strong></div>
-          </div>
-          <h2 class="section-title">已裝備</h2>
-          <div id="equipmentGrid" class="equipment-grid"></div>
-          <div class="row-actions">
-            <button id="enhanceButton" class="pixel-button gold">強化全部</button>
-            <button id="unequipButton" class="pixel-button purple">全部卸下</button>
-          </div>
-        </section>
-
-        <section id="inventoryPane" class="tab-pane hidden">
-          <div class="pane-heading"><h2 class="section-title">裝備背包</h2><span id="bagCount" class="small">0 / 60</span></div>
-          <div id="inventoryGrid" class="inventory-grid"></div>
-          <div class="row-actions">
-            <button id="synthButton" class="pixel-button gold">合成 5 件</button>
-            <button id="sellButton" class="pixel-button purple">出售普通</button>
-          </div>
-          <p class="help-text">點擊裝備即可穿上。5 件相同稀有度可合成下一級。</p>
-        </section>
-
-        <section id="skillsPane" class="tab-pane hidden">
-          <div id="skillsList" class="skills-list"></div>
-        </section>
-      </aside>
-
-      <footer class="battle-log pixel-panel">
-        <strong>戰鬥記錄</strong>
-        <div id="logLines"></div>
-      </footer>
-    </div>
-  </main>
-
-  <div id="offlineModal" class="modal hidden" role="dialog" aria-modal="true">
-    <section class="pixel-card modal-card">
-      <h2>歡迎回來！</h2>
-      <p>你的史萊姆在離線期間繼續冒險。</p>
-      <strong id="offlineReward" class="offline-reward"></strong>
-      <button id="claimOfflineButton" class="pixel-button gold wide">領取獎勵</button>
-    </section>
-  </div>
-
-  <noscript>這個遊戲需要啟用 JavaScript。</noscript>
-</body>
-</html>
+<main id="gameScreen" class="screen game-screen hidden"><div class="game-shell">
+<header class="top-bar pixel-panel"><div class="player-chip"><div class="player-portrait">●</div><div><strong id="playerName">Player</strong><div class="small">Lv. <span id="levelText">1</span> · 戰力 <span id="powerText">0</span></div></div></div><div class="resource-chip">🪙 <strong id="goldText">0</strong></div><div class="resource-chip">💎 <strong id="gemText">0</strong></div><div class="top-spacer"></div><span id="saveStatus" class="small save-status">尚未儲存</span><button id="manualSaveButton" class="icon-button">💾</button><button id="logoutButton" class="icon-button">↩</button></header>
+<nav class="left-menu pixel-panel"><button class="menu-button active">⚔ 戰鬥</button><button class="menu-button" data-focus-tab="team">👥 隊伍</button><button class="menu-button" data-focus-tab="equipment">🛡 裝備</button><button class="menu-button" data-focus-tab="inventory">🎒 背包</button><button class="menu-button" data-focus-tab="skills">✨ 技能</button><div class="quest-box"><strong>每日任務</strong><span class="small">擊敗 30 隻怪物</span><div class="meter"><i id="questBar"></i></div><span id="questText" class="small">0 / 30</span></div></nav>
+<section class="battle-column pixel-panel"><div class="stage-header"><div><strong id="mapTitle">暮色草原</strong><span id="stageText">Stage 1 / 10</span></div><div id="stageNodes" class="stage-nodes"></div></div><div class="battle-area"><canvas id="battleCanvas" width="420" height="250"></canvas><div class="battle-hud"><article class="unit-panel"><div><strong>隊伍生命</strong><span id="heroHpText">100 / 100</span></div><div class="hp-meter"><i id="heroHpBar"></i></div></article><article class="unit-panel enemy-panel"><div><strong id="enemyName">Green Blob</strong><span id="enemyHpText">30 / 30</span></div><div class="hp-meter"><i id="enemyHpBar"></i></div></article></div><div id="floatingLayer" class="floating-layer"></div></div><div id="classSkillBar" class="battle-controls"></div></section>
+<aside class="right-panel pixel-panel"><div class="tabs"><button class="tab active" data-tab="team">隊伍</button><button class="tab" data-tab="equipment">裝備</button><button class="tab" data-tab="inventory">背包</button><button class="tab" data-tab="skills">技能</button></div>
+<section id="teamPane" class="tab-pane"><div class="pane-heading"><h2 class="section-title">冒險隊伍</h2><span id="teamCount" class="small">1 / 5</span></div><p class="help-text">每升 5 級解鎖新隊員：法師、槍手、坦克、醫生。</p><div id="teamGrid" class="team-grid"></div></section>
+<section id="equipmentPane" class="tab-pane hidden"><div class="stats-grid"><div class="stat-card">隊伍攻擊<strong id="attackStat">0</strong></div><div class="stat-card">最大生命<strong id="hpStat">0</strong></div><div class="stat-card">爆擊率<strong id="critStat">0%</strong></div><div class="stat-card">裝備強化<strong id="enhanceStat">+0</strong></div></div><h2 class="section-title">已裝備</h2><div id="equipmentGrid" class="equipment-grid"></div><div class="row-actions"><button id="enhanceButton" class="pixel-button gold">強化全部</button><button id="unequipButton" class="pixel-button purple">全部卸下</button></div></section>
+<section id="inventoryPane" class="tab-pane hidden"><div class="pane-heading"><h2 class="section-title">裝備背包</h2><span id="bagCount" class="small">0 / 60</span></div><div id="inventoryGrid" class="inventory-grid"></div><div class="row-actions"><button id="synthButton" class="pixel-button gold">合成 5 件</button><button id="sellButton" class="pixel-button purple">出售普通</button></div></section>
+<section id="skillsPane" class="tab-pane hidden"><div id="skillsList" class="skills-list"></div></section></aside>
+<footer class="battle-log pixel-panel"><strong>戰鬥記錄</strong><div id="logLines"></div></footer>
+</div></main>
+<div id="offlineModal" class="modal hidden"><section class="pixel-card modal-card"><h2>歡迎回來！</h2><p>你的隊伍在離線期間繼續冒險。</p><strong id="offlineReward" class="offline-reward"></strong><button id="claimOfflineButton" class="pixel-button gold wide">領取獎勵</button></section></div>
+<noscript>這個遊戲需要啟用 JavaScript。</noscript>
+</body></html>
