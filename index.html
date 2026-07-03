@@ -1,40 +1,148 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Pixel Legends</title><style>
-*{box-sizing:border-box}body{margin:0;background:#080d18;color:#f7f0d8;font-family:monospace}button,input{font:inherit}.hide{display:none!important}.panel{background:linear-gradient(#202d46,#111827);border:3px solid #65728b;box-shadow:inset 0 0 0 2px #080c14}#login{min-height:100vh;display:grid;place-items:center;background:radial-gradient(circle,#263d60,#080d18)}.login{width:min(420px,90%);padding:25px}.logo{text-align:center;font-size:39px;font-weight:900;color:#ffda65;text-shadow:4px 4px #8b421b;margin:5px 0 20px}.login input{width:100%;padding:14px;background:#070c15;border:3px solid #687a9a;color:#fff;margin:8px 0 13px}.goldbtn{border:3px solid #89501d;background:linear-gradient(#ffd96b,#dc9229);color:#281604;font-weight:900;padding:12px;cursor:pointer}.login .goldbtn{width:100%}.note{font-size:11px;color:#94a2b9;line-height:1.5;margin-top:12px}#game{padding:8px}.app{max-width:1450px;margin:auto;display:grid;grid-template-columns:210px 1fr 330px;grid-template-rows:auto 1fr auto;gap:8px;min-height:calc(100vh - 16px)}header{grid-column:1/-1;display:flex;align-items:center;gap:10px;padding:8px 12px}.avatar{font-size:34px;border:3px solid #c59443;background:#10223a;padding:5px}.grow{flex:1}.res{background:#09111e;border:2px solid #41506a;padding:9px 12px}.res b{color:#ffe074}.small{font-size:11px;color:#a9b6c9}.menu{padding:8px;display:flex;flex-direction:column;gap:7px}.menu button{padding:11px;text-align:left;background:#17233a;border:2px solid #58677f;color:#fff;font-weight:800}.menu button:first-child{border-color:#e0aa46;background:#344866}.center{display:grid;grid-template-rows:auto minmax(420px,1fr) auto}.stage{text-align:center;padding:10px;border-bottom:2px solid #4c5870}.nodes{display:flex;justify-content:center;gap:5px;margin-top:7px}.node{width:28px;padding:3px;border:2px solid #3d475b;color:#748096}.node.on{background:#d7a53d;color:#221500}.node.done{background:#347a3c;color:#fff}.arena{position:relative;overflow:hidden}canvas{width:100%;height:100%;display:block}.hud{position:absolute;inset:10px 10px auto;display:flex;justify-content:space-between;pointer-events:none}.unit{width:42%;background:#07101ddd;border:2px solid #6b7892;padding:6px}.bar{height:12px;background:#3a0b0b;border:2px solid #080808}.bar i{display:block;height:100%;background:#db3f3f;width:100%}.skills{display:flex;justify-content:center;gap:8px;padding:9px;border-top:2px solid #4b5870}.skill{width:58px;height:58px;position:relative;background:#4b267f;color:#fff;border:3px solid #8d76b4;font-size:25px}.skill:nth-child(2){background:#155a91}.skill:nth-child(3){background:#24713b}.cd{position:absolute;inset:0;background:#000b;display:grid;place-items:center;font-size:14px}.auto{padding:8px 12px;background:#193c29;border:2px solid #4f8461;color:#b9ffc7;font-weight:900}.side{display:flex;flex-direction:column}.tabs{display:flex}.tabs button{flex:1;padding:11px;background:#111a2a;border:0;border-bottom:2px solid #56637b;color:#adb8c9}.tabs .on{background:#2d3d59;color:#ffdc72}.pane{padding:10px;overflow:auto}.stats,.equips,.bag{display:grid;gap:6px}.stats{grid-template-columns:1fr 1fr}.stat,.slot,.item,.skillrow{background:#0a1322;border:2px solid #44516a;padding:8px}.stat b{display:block;color:#ffe17d;font-size:16px}.equips{grid-template-columns:repeat(3,1fr);margin:9px 0}.slot,.item{text-align:center;min-height:77px}.bag{grid-template-columns:repeat(4,1fr)}.item{cursor:pointer;padding:5px}.item:hover{transform:translateY(-2px)}.r0{border-color:#9aa4b3}.r1{border-color:#65d16a}.r2{border-color:#579cff}.r3{border-color:#af66f5}.r4{border-color:#ffb23d}.r5{border-color:#ff5560}.actions{display:flex;gap:6px;margin:9px 0}.actions button{flex:1}.skillrow{display:grid;grid-template-columns:40px 1fr auto;align-items:center;gap:7px;margin-bottom:7px}.skillrow button{padding:6px}.log{grid-column:1/-1;padding:8px;height:70px;overflow:auto;font-size:11px;color:#b3c0d3}.toast{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);background:#09111eee;border:2px solid #e0aa46;padding:10px 15px;z-index:9}.modal{position:fixed;inset:0;background:#000b;display:grid;place-items:center;z-index:10}.modal>div{padding:25px;text-align:center;width:min(400px,90%)}
-@media(max-width:980px){.app{grid-template-columns:1fr}.menu{display:none}.center,.side{grid-column:1}.side{min-height:480px}header{flex-wrap:wrap}.log{grid-column:1}.arena{min-height:390px}}@media(max-width:600px){#game{padding:0}.panel{border-width:2px}.app{display:block}.center{display:grid}.arena{min-height:350px}.bag{grid-template-columns:repeat(5,1fr)}header .small{display:none}}
-</style></head><body>
-<section id="login"><div class="login panel"><div class="logo">PIXEL LEGENDS</div><p>自動掛機像素 RPG</p><input id="account" maxlength="20" placeholder="輸入玩家帳戶"><button id="loginBtn" class="goldbtn">登入／建立存檔</button><button id="continueBtn" class="goldbtn hide" style="margin-top:8px"></button><div class="note">目前以瀏覽器按帳戶分開儲存，每 5 秒自動保存；同一裝置輸入相同帳戶即可讀取。</div></div></section>
-<section id="game" class="hide"><div class="app"><header class="panel"><div class="avatar">🧙‍♂️</div><div><b id="name">Hero</b><div class="small">Lv. <span id="lv">1</span>　戰力 <span id="power">0</span></div></div><div class="res">🪙 <b id="gold">0</b></div><div class="res">💎 <b id="gem">0</b></div><div class="grow"></div><span class="small" id="saved">自動儲存</span><button id="save">💾</button><button id="logout">登出</button></header>
-<aside class="menu panel"><button>⚔️ 戰鬥</button><button>🏰 城鎮</button><button>🦸 英雄</button><button>🎒 背包</button><button>🌀 地牢</button><button>🛡️ 公會</button></aside>
-<main class="center panel"><div class="stage"><b id="stage">翠綠森林 · Stage 1</b><div class="nodes" id="nodes"></div></div><div class="arena"><canvas id="cv"></canvas><div class="hud"><div class="unit"><span id="heroName">Hero</span> <span id="heroHp" style="float:right"></span><div class="bar"><i id="heroBar"></i></div></div><div class="unit"><span id="mobName">Slime</span> <span id="mobHp" style="float:right"></span><div class="bar"><i id="mobBar"></i></div></div></div></div><div class="skills"><button class="skill" data-s="slash">⚔<span class="cd hide"></span></button><button class="skill" data-s="nova">✦<span class="cd hide"></span></button><button class="skill" data-s="heal">✚<span class="cd hide"></span></button><button class="auto" id="auto">AUTO ON</button></div></main>
-<aside class="side panel"><div class="tabs"><button class="on" data-tab="gear">裝備</button><button data-tab="bag">背包</button><button data-tab="skills">技能</button></div><div class="pane" id="gearPane"><div class="stats"><div class="stat">攻擊<b id="atk">0</b></div><div class="stat">生命<b id="maxhp">0</b></div><div class="stat">爆擊<b id="crit">0%</b></div><div class="stat">裝備強化<b id="enh">+0</b></div></div><div class="equips" id="equips"></div><div class="actions"><button class="goldbtn" id="enhance">強化全部</button><button id="unequip">卸下</button></div></div><div class="pane hide" id="bagPane"><div id="bagCount" class="small"></div><div class="bag" id="bag"></div><div class="actions"><button class="goldbtn" id="synth">合成 5 件</button><button id="sell">出售普通</button></div></div><div class="pane hide" id="skillsPane"><div id="skillList"></div></div></aside><footer class="log panel" id="log"></footer></div></section>
-<div class="modal hide" id="offline"><div class="panel"><h2>歡迎回來</h2><p>離線掛機獎勵</p><h2 id="reward" style="color:#ffda65"></h2><button class="goldbtn" id="claim">領取</button></div></div>
-<script>
-'use strict';const $=q=>document.querySelector(q),$$=q=>[...document.querySelectorAll(q)];
-const maps=[['翠綠森林','#78c9df','#52934b',['史萊姆','哥布林','野狼']],['赤紅峽谷','#df956c','#9d4b37',['火蜥蜴','獸人','岩魔']],['冰晶雪原','#b4def0','#b6dfe9',['冰狼','雪人','冰法師']],['暗影古堡','#645778','#373043',['骷髏','暗騎士','石像鬼']]],types={weapon:['武器','🗡️'],helmet:['頭盔','🪖'],armor:['鎧甲','🛡️'],boots:['戰靴','🥾'],ring:['戒指','💍'],amulet:['項鍊','📿']},rn=['普通','優良','稀有','史詩','傳說','神話'],rm=[1,1.45,2.1,3.1,4.7,7.2],si={slash:['烈焰斬','⚔️',2.3,5,120],nova:['星爆術','✦',3.5,9,220],heal:['生命祈禱','✚',.34,12,180]};
-let S,M,user='',pending=null,lastA=0,lastM=0,dead=0,ready={slash:0,nova:0,heal:0},fx=[],texts=[];const cv=$('#cv'),x=cv.getContext('2d');
-const fresh=u=>({user:u,lv:1,xp:0,next:100,gold:250,gem:30,map:0,stage:1,kills:0,total:0,auto:true,skills:{slash:1,nova:1,heal:1},bag:[],gear:{weapon:null,helmet:null,armor:null,boots:null,ring:null,amulet:null},enh:0,last:Date.now()});
-const key=u=>'anime-game:'+u.toLowerCase(),fmt=n=>Math.floor(n).toLocaleString(),gs=()=>S.map*10+S.stage;
-function stat(){let a=12+S.lv*4,h=120+S.lv*28,c=.05;Object.values(S.gear).forEach(i=>{if(i){a+=i.p*(1+S.enh*.12);h+=i.p*4*(1+S.enh*.12);c+=i.r*.008}});return{a:~~a,h:~~h,c:Math.min(.55,c)}}
-function login(v){user=v.trim().replace(/[^\w\-\u4e00-\u9fff]/g,'').slice(0,20);if(!user)return toast('請輸入帳戶');const raw=localStorage.getItem(key(user));S=raw?Object.assign(fresh(user),JSON.parse(raw)):fresh(user);localStorage.setItem('anime-last',user);$('#login').classList.add('hide');$('#game').classList.remove('hide');requestAnimationFrame(resize);if(raw&&Date.now()-S.last>60000){let sec=Math.min((Date.now()-S.last)/1000,28800);pending={g:~~(sec*(2+gs()*.45)),xp:~~(sec*(.4+gs()*.08))};$('#reward').textContent=`🪙 ${fmt(pending.g)}　⭐ ${fmt(pending.xp)} XP`;$('#offline').classList.remove('hide')}spawn();render();log(raw?'已載入玩家存檔':'新冒險開始')}
-function save(show=0){if(!S)return;S.last=Date.now();localStorage.setItem(key(user),JSON.stringify(S));$('#saved').textContent='已儲存 '+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});if(show)toast('進度已儲存')}
-function spawn(){let g=gs(),boss=S.stage===10,h=~~((55+g*24)*1.10**(g-1)*(boss?5.2:1)),names=maps[S.map][3];M={name:(boss?'魔王 · ':'')+names[(S.stage-1)%3],h,max:h,a:~~(5+g*2.4)*(boss?2:1),boss};let st=stat();if(!S.hp||S.hp>st.h)S.hp=st.h}
-function gainxp(n){S.xp+=n;while(S.xp>=S.next){S.xp-=S.next;S.lv++;S.next=~~(S.next*1.28+35);S.hp=stat().h;toast('LEVEL UP！Lv.'+S.lv)}}
-function item(force){let ks=Object.keys(types),t=ks[~~(Math.random()*ks.length)],r=force;if(r==null){let z=Math.random();r=z<.005?5:z<.025?4:z<.09?3:z<.23?2:z<.55?1:0}return{id:Date.now().toString(36)+Math.random(),t,r,p:~~((6+gs()*2.5)*rm[r]*(.85+Math.random()*.3)),l:gs()}}
-function kill(){let g=~~((18+gs()*7)*(M.boss?8:1)),xp=~~((15+gs()*5)*(M.boss?5:1));S.gold+=g;gainxp(xp);S.kills++;S.total++;if(Math.random()<(M.boss?.92:.34)){let it=item(M.boss?Math.min(5,Math.max(1,~~((gs()+6)/9))):null);S.bag.unshift(it);if(S.bag.length>80)S.bag.pop();toast(`${rn[it.r]}裝備掉落`)}text(cv.clientWidth*.7,cv.clientHeight*.45,'+'+g+' 🪙','#ffd65e');let need=M.boss?1:6;if(S.kills>=need){S.kills=0;if(S.stage<10)S.stage++;else{S.stage=1;S.map=(S.map+1)%maps.length;toast('前往 '+maps[S.map][0])}}spawn();render();save()}
-function hit(mult=1,label=''){if(!M||M.h<=0)return;let st=stat(),crit=Math.random()<st.c,d=~~(st.a*mult*(.9+Math.random()*.2)*(crit?1.8:1));M.h-=d;shot(270,300,cv.clientWidth*.7,280,mult>1?'#e65cff':'#ffe179');text(cv.clientWidth*.7,250,(crit?'CRIT! ':'')+d,crit?'#ffe45a':'#fff');if(label)log(label+'造成 '+d+' 傷害');if(M.h<=0){M.h=0;setTimeout(kill,160)}hud()}
-function mobhit(){if(Date.now()<dead)return;let d=~~(M.a*(.8+Math.random()*.35));S.hp-=d;text(cv.clientWidth*.25,250,'-'+d,'#ff6969');if(S.hp<=0){S.hp=0;dead=Date.now()+2000;let lost=~~(S.gold*.02);S.gold-=lost;log('英雄倒下，損失 '+lost+' 金幣');setTimeout(()=>{S.hp=stat().h;hud()},2000)}hud()}
-function use(k){if(Date.now()<ready[k]||S.hp<=0)return;let q=si[k],lv=S.skills[k];ready[k]=Date.now()+q[3]*1000;if(k==='heal'){let n=~~(stat().h*(q[2]+lv*.035));S.hp=Math.min(stat().h,S.hp+n);text(cv.clientWidth*.25,240,'+'+n,'#70ff8a')}else hit(q[2]+lv*.18,q[0]);cool();hud()}
-function equip(id){let n=S.bag.findIndex(i=>i.id===id),it=S.bag[n],old=S.gear[it.t];S.gear[it.t]=it;S.bag.splice(n,1);if(old)S.bag.unshift(old);S.hp=Math.min(S.hp,stat().h);render();save()}
-function render(){let st=stat();$('#name').textContent=$('#heroName').textContent=user;$('#lv').textContent=S.lv;$('#power').textContent=fmt(st.a+st.h/10);$('#gold').textContent=fmt(S.gold);$('#gem').textContent=S.gem;$('#atk').textContent=st.a;$('#maxhp').textContent=st.h;$('#crit').textContent=~~(st.c*100)+'%';$('#enh').textContent='+'+S.enh;$('#stage').textContent=maps[S.map][0]+' · Stage '+S.stage;$('#auto').textContent='AUTO '+(S.auto?'ON':'OFF');let nd=$('#nodes');nd.innerHTML='';for(let i=1;i<=10;i++)nd.innerHTML+=`<span class="node ${i<S.stage?'done':i===S.stage?'on':''}">${i}</span>`;let eg=$('#equips');eg.innerHTML='';Object.entries(types).forEach(([k,v])=>{let i=S.gear[k];eg.innerHTML+=`<div class="slot ${i?'r'+i.r:''}">${v[1]}<br><small>${i?rn[i.r]+' '+v[0]+'<br>⚔'+i.p:v[0]}</small></div>`});let b=$('#bag');b.innerHTML='';S.bag.forEach(i=>{let e=document.createElement('button');e.className='item r'+i.r;e.innerHTML=`${types[i.t][1]}<br><small>${rn[i.r]}<br>⚔${i.p}</small>`;e.onclick=()=>equip(i.id);b.appendChild(e)});$('#bagCount').textContent=`背包 ${S.bag.length}/80`;let list=$('#skillList');list.innerHTML='';Object.entries(si).forEach(([k,q])=>{let lv=S.skills[k],cost=~~(q[4]*1.55**(lv-1)),e=document.createElement('div');e.className='skillrow';e.innerHTML=`<b>${q[1]}</b><div><b>${q[0]} Lv.${lv}</b><div class="small">提升技能效果</div></div><button class="goldbtn">${fmt(cost)}</button>`;e.querySelector('button').onclick=()=>{if(S.gold<cost)return toast('金幣不足');S.gold-=cost;S.skills[k]++;render();save()};list.appendChild(e)});hud();cool()}
-function hud(){if(!S||!M)return;let st=stat();$('#heroHp').textContent=`${Math.max(0,~~S.hp)}/${st.h}`;$('#heroBar').style.width=Math.max(0,S.hp/st.h*100)+'%';$('#mobName').textContent=(M.boss?'BOSS ':'')+M.name;$('#mobHp').textContent=`${Math.max(0,~~M.h)}/${M.max}`;$('#mobBar').style.width=Math.max(0,M.h/M.max*100)+'%';$('#gold').textContent=fmt(S.gold)}
-function cool(){$$('.skill').forEach(b=>{let c=b.querySelector('.cd'),n=Math.max(0,ready[b.dataset.s]-Date.now());c.classList.toggle('hide',!n);if(n)c.textContent=(n/1000).toFixed(1)})}
-function log(s){$('#log').innerHTML+=`<div>[${new Date().toLocaleTimeString()}] ${s}</div>`;$('#log').scrollTop=99999}function toast(s){let e=document.createElement('div');e.className='toast';e.textContent=s;document.body.appendChild(e);setTimeout(()=>e.remove(),2200)}
-function resize(){let r=cv.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);cv.width=r.width*d;cv.height=r.height*d;x.setTransform(d,0,0,d,0,0);x.imageSmoothingEnabled=false}function rect(a,b,c,d,k){x.fillStyle=k;x.fillRect(~~a,~~b,~~c,~~d)}
-function bg(w,h){let m=maps[S.map];x.fillStyle=m[1];x.fillRect(0,0,w,h);for(let i=0;i<5;i++){rect(i*190+20,70+(i%2)*35,100,18,'#eefaff');rect(i*190+40,55+(i%2)*35,45,16,'#eefaff')}x.fillStyle='#315e52';x.beginPath();x.moveTo(0,h*.6);for(let a=0;a<=w;a+=90)x.lineTo(a,h*.38+(a/90%2)*40);x.lineTo(w,h);x.lineTo(0,h);x.fill();rect(0,h*.62,w,h*.38,m[2]);x.fillStyle='#d4ad68';x.beginPath();x.ellipse(w*.5,h*.84,w*.3,h*.11,0,0,7);x.fill()}
-function hero(a,b,p=3){rect(a-9*p,b-24*p,18*p,24*p,'#203a61');rect(a-7*p,b-31*p,14*p,9*p,'#efb682');rect(a-9*p,b-36*p,18*p,8*p,'#5b301e');rect(a-6*p,b-28*p,3*p,3*p,'#111');rect(a+3*p,b-28*p,3*p,3*p,'#111');rect(a+10*p,b-28*p,4*p,29*p,'#e9eff8');rect(a-12*p,b-20*p,5*p,18*p,'#8f3034')}
-function mage(a,b,p=2.5){rect(a-9*p,b-22*p,18*p,22*p,'#6a2e88');rect(a-7*p,b-29*p,14*p,8*p,'#efb689');rect(a-13*p,b-34*p,26*p,6*p,'#4b1f6f');rect(a-7*p,b-42*p,15*p,10*p,'#5a237d')}
-function mob(a,b,p=3){if(M.boss){rect(a-18*p,b-32*p,36*p,32*p,'#8f3345');rect(a-12*p,b-24*p,6*p,5*p,'#ffe05b');rect(a+6*p,b-24*p,6*p,5*p,'#ffe05b');rect(a-24*p,b-25*p,8*p,24*p,'#6f2d43');rect(a+17*p,b-25*p,8*p,24*p,'#6f2d43');return}let k=(S.stage-1)%3,c=['#62c565','#4e994b','#a75436'][k];rect(a-17*p,b-22*p,34*p,22*p,c);rect(a-12*p,b-30*p,24*p,11*p,c);rect(a-8*p,b-20*p,4*p,4*p,'#151515');rect(a+5*p,b-20*p,4*p,4*p,'#151515')}
-function shot(a,b,c,d,k){fx.push({a,b,u:(c-a)/20,v:(d-b)/20,n:20,k})}function text(a,b,s,k){texts.push({a,b,s,k,n:50})}function effects(){fx.forEach(f=>{rect(f.a,f.b,7,7,f.k);f.a+=f.u;f.b+=f.v;f.n--});fx=fx.filter(f=>f.n>0);x.font='bold 18px monospace';x.textAlign='center';texts.forEach(t=>{x.strokeStyle='#111';x.lineWidth=4;x.strokeText(t.s,t.a,t.b);x.fillStyle=t.k;x.fillText(t.s,t.a,t.b);t.b-=.7;t.n--});texts=texts.filter(t=>t.n>0)}
-function loop(t){requestAnimationFrame(loop);if(!S)return;if(S.auto&&S.hp>0&&Date.now()>dead){if(t-lastA>Math.max(480,950-S.lv*3)){lastA=t;hit()}if(t-lastM>1450){lastM=t;mobhit()}Object.keys(si).forEach(k=>{if(Date.now()>=ready[k]&&(k!=='heal'||S.hp<stat().h*.55))use(k)})}let w=cv.clientWidth,h=cv.clientHeight;x.clearRect(0,0,w,h);bg(w,h);let q=Math.sin(t/180)*2;hero(w*.25,h*.78+q,2.7);mage(w*.38,h*.79-q,2.4);mob(w*.72,h*.77+q,M.boss?3.3:2.8);effects();cool()}
-$('#loginBtn').onclick=()=>login($('#account').value);$('#account').onkeydown=e=>e.key==='Enter'&&login(e.target.value);$('#save').onclick=()=>save(1);$('#logout').onclick=()=>{save();localStorage.removeItem('anime-last');location.reload()};$('#auto').onclick=()=>{S.auto=!S.auto;render();save()};$$('.skill').forEach(b=>b.onclick=()=>use(b.dataset.s));$('#enhance').onclick=()=>{let c=500*2**S.enh;if(S.gold<c)return toast('需要 '+fmt(c)+' 金幣');S.gold-=c;S.enh++;render();save()};$('#unequip').onclick=()=>{Object.keys(S.gear).forEach(k=>{if(S.gear[k])S.bag.unshift(S.gear[k]);S.gear[k]=null});render();save()};$('#synth').onclick=()=>{let g={};S.bag.forEach(i=>(g[i.r]??=[]).push(i));let r=Object.keys(g).map(Number).filter(r=>r<5&&g[r].length>=5).sort()[0];if(r==null)return toast('未有 5 件同稀有度裝備');let ids=new Set(g[r].slice(-5).map(i=>i.id));S.bag=S.bag.filter(i=>!ids.has(i.id));S.bag.unshift(item(r+1));render();save();toast('合成成功')};$('#sell').onclick=()=>{let a=S.bag.filter(i=>i.r===0),v=a.reduce((n,i)=>n+i.p*5,0);if(!a.length)return toast('沒有普通裝備');S.bag=S.bag.filter(i=>i.r!==0);S.gold+=v;render();save()};$$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(z=>z.classList.remove('on'));b.classList.add('on');['gear','bag','skills'].forEach(k=>$('#'+k+'Pane').classList.toggle('hide',k!==b.dataset.tab))});$('#claim').onclick=()=>{if(pending){S.gold+=pending.g;gainxp(pending.xp);pending=null;render();save()}$('#offline').classList.add('hide')};window.onresize=resize;window.onbeforeunload=save;setInterval(save,5000);let last=localStorage.getItem('anime-last');if(last){$('#continueBtn').classList.remove('hide');$('#continueBtn').textContent='繼續 '+last;$('#continueBtn').onclick=()=>login(last);$('#account').value=last;setTimeout(()=>login(last),600)}requestAnimationFrame(loop);
-</script></body></html>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#271f55">
+  <title>Blob Quest — Pixel Idle RPG</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="game.js"></script>
+</head>
+<body>
+  <main id="loginScreen" class="screen login-screen">
+    <section class="pixel-card login-card">
+      <div class="logo-slimes" aria-hidden="true">
+        <span class="mini-slime red"></span>
+        <span class="mini-slime green"></span>
+        <span class="mini-slime blue"></span>
+      </div>
+      <h1>BLOB QUEST</h1>
+      <p class="subtitle">像素史萊姆自動掛機 RPG</p>
+      <label class="field-label" for="accountInput">玩家帳戶</label>
+      <input id="accountInput" class="pixel-input" maxlength="20" autocomplete="username" placeholder="輸入名稱，例如 Pakho">
+      <button id="loginButton" class="pixel-button gold wide">登入／建立角色</button>
+      <button id="continueButton" class="pixel-button purple wide hidden"></button>
+      <p class="help-text">每個帳戶都有獨立存檔。遊戲每 5 秒自動儲存，重新開啟亦會計算離線獎勵。</p>
+      <p id="loginError" class="error-text" role="alert"></p>
+    </section>
+  </main>
+
+  <main id="gameScreen" class="screen game-screen hidden">
+    <div class="game-shell">
+      <header class="top-bar pixel-panel">
+        <div class="player-chip">
+          <div class="player-portrait">●</div>
+          <div>
+            <strong id="playerName">Player</strong>
+            <div class="small">Lv. <span id="levelText">1</span> · 戰力 <span id="powerText">0</span></div>
+          </div>
+        </div>
+        <div class="resource-chip">🪙 <strong id="goldText">0</strong></div>
+        <div class="resource-chip">💎 <strong id="gemText">0</strong></div>
+        <div class="top-spacer"></div>
+        <span id="saveStatus" class="small save-status">尚未儲存</span>
+        <button id="manualSaveButton" class="icon-button" title="儲存">💾</button>
+        <button id="logoutButton" class="icon-button" title="登出">↩</button>
+      </header>
+
+      <nav class="left-menu pixel-panel" aria-label="遊戲選單">
+        <button class="menu-button active">⚔ 戰鬥</button>
+        <button class="menu-button" data-focus-tab="equipment">🛡 裝備</button>
+        <button class="menu-button" data-focus-tab="inventory">🎒 背包</button>
+        <button class="menu-button" data-focus-tab="skills">✨ 技能</button>
+        <div class="quest-box">
+          <strong>每日任務</strong>
+          <span class="small">擊敗 30 隻怪物</span>
+          <div class="meter"><i id="questBar"></i></div>
+          <span id="questText" class="small">0 / 30</span>
+        </div>
+      </nav>
+
+      <section class="battle-column pixel-panel">
+        <div class="stage-header">
+          <div>
+            <strong id="mapTitle">暮色草原</strong>
+            <span id="stageText">Stage 1 / 10</span>
+          </div>
+          <div id="stageNodes" class="stage-nodes" aria-label="關卡進度"></div>
+        </div>
+
+        <div class="battle-area">
+          <canvas id="battleCanvas" width="360" height="220" aria-label="自動戰鬥畫面"></canvas>
+          <div class="battle-hud">
+            <article class="unit-panel">
+              <div><strong id="heroName">Hero</strong><span id="heroHpText">100 / 100</span></div>
+              <div class="hp-meter"><i id="heroHpBar"></i></div>
+            </article>
+            <article class="unit-panel enemy-panel">
+              <div><strong id="enemyName">Green Blob</strong><span id="enemyHpText">30 / 30</span></div>
+              <div class="hp-meter"><i id="enemyHpBar"></i></div>
+            </article>
+          </div>
+          <div id="floatingLayer" class="floating-layer" aria-hidden="true"></div>
+        </div>
+
+        <div class="battle-controls">
+          <button class="skill-button" data-skill="slash"><span>⚔</span><small>強力斬</small><b class="cooldown hidden"></b></button>
+          <button class="skill-button blue" data-skill="burst"><span>✦</span><small>星光爆</small><b class="cooldown hidden"></b></button>
+          <button class="skill-button green" data-skill="heal"><span>✚</span><small>治療</small><b class="cooldown hidden"></b></button>
+          <button id="autoButton" class="auto-button on">AUTO ON</button>
+        </div>
+      </section>
+
+      <aside class="right-panel pixel-panel">
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="equipment">裝備</button>
+          <button class="tab" data-tab="inventory">背包</button>
+          <button class="tab" data-tab="skills">技能</button>
+        </div>
+
+        <section id="equipmentPane" class="tab-pane">
+          <div class="stats-grid">
+            <div class="stat-card">攻擊力<strong id="attackStat">0</strong></div>
+            <div class="stat-card">最大生命<strong id="hpStat">0</strong></div>
+            <div class="stat-card">爆擊率<strong id="critStat">0%</strong></div>
+            <div class="stat-card">裝備強化<strong id="enhanceStat">+0</strong></div>
+          </div>
+          <h2 class="section-title">已裝備</h2>
+          <div id="equipmentGrid" class="equipment-grid"></div>
+          <div class="row-actions">
+            <button id="enhanceButton" class="pixel-button gold">強化全部</button>
+            <button id="unequipButton" class="pixel-button purple">全部卸下</button>
+          </div>
+        </section>
+
+        <section id="inventoryPane" class="tab-pane hidden">
+          <div class="pane-heading"><h2 class="section-title">裝備背包</h2><span id="bagCount" class="small">0 / 60</span></div>
+          <div id="inventoryGrid" class="inventory-grid"></div>
+          <div class="row-actions">
+            <button id="synthButton" class="pixel-button gold">合成 5 件</button>
+            <button id="sellButton" class="pixel-button purple">出售普通</button>
+          </div>
+          <p class="help-text">點擊裝備即可穿上。5 件相同稀有度可合成下一級。</p>
+        </section>
+
+        <section id="skillsPane" class="tab-pane hidden">
+          <div id="skillsList" class="skills-list"></div>
+        </section>
+      </aside>
+
+      <footer class="battle-log pixel-panel">
+        <strong>戰鬥記錄</strong>
+        <div id="logLines"></div>
+      </footer>
+    </div>
+  </main>
+
+  <div id="offlineModal" class="modal hidden" role="dialog" aria-modal="true">
+    <section class="pixel-card modal-card">
+      <h2>歡迎回來！</h2>
+      <p>你的史萊姆在離線期間繼續冒險。</p>
+      <strong id="offlineReward" class="offline-reward"></strong>
+      <button id="claimOfflineButton" class="pixel-button gold wide">領取獎勵</button>
+    </section>
+  </div>
+
+  <noscript>這個遊戲需要啟用 JavaScript。</noscript>
+</body>
+</html>
